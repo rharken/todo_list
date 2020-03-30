@@ -1,0 +1,8 @@
+db.sqlite3
+geckodriver.log
+virtualenv
+venv
+.DS_Store
+.vscode
+__pycache__
+*.pyc
