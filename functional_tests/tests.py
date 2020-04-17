@@ -125,8 +125,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             x_resolution / 2,
-#            delta=10
-            delta=250 # Can't figure out why the template's not working 100%
+            delta=10
         )
 
         # She starts a new list and sees the input
@@ -138,7 +137,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             x_resolution / 2,
-#            delta=10
-            delta=250 # Can't figure out why the template's not working 100%
+            delta=10
         )
 
