@@ -2,7 +2,7 @@
 ---
 based on the book:  
 <p align="center">
-<bold>Test Driven Development</bold>  
-The Testing Goat  
-<i>by: Harry J.W. Percival</i>  
+<b>Test Driven Development</b>
+<br>The Testing Goat  
+<br><i>by: Harry J.W. Percival</i>
 </p>
