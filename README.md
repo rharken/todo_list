@@ -1,5 +1,8 @@
 # To-Do List Project
 ---
-based on the book: Test Driven Development  
-Obey The Testing Goat  
-*by: Harry J.W. Percival*
+based on the book:  
+<p align="center">
+<bold>Test Driven Development</bold>  
+The Testing Goat  
+<i>by: Harry J.W. Percival</i>  
+</p>
