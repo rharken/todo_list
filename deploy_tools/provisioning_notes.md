@@ -9,7 +9,7 @@
 eg, on Ubuntu:  
 ```bash
 sudo apt update
-sudo apt install nginx git python36 python3.6-venv
+sudo apt install nginx git python3.8 python3.8-venv
 ```
 
 ## Nginx Virtual Host config * see nginx.template.conf
