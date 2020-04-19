@@ -36,7 +36,7 @@ def _create_or_update_dotenv():
         append('.env', f'DJANGO_SECRET_KEY={new_secret}')
 
 def _update_static_files():
-    run('./venv/bin/python3 manage.py collectstatic --noinput')
+    run('./venv/bin/python3.8 manage.py collectstatic --noinput')
 
 def _update_database():
-    run('./venv/bin/python3 manage.py migrate --noinput')
+    run('./venv/bin/python3.8 manage.py migrate --noinput')
