@@ -7,7 +7,7 @@ User=USER
 WorkingDirectory=/home/USER/sites/DOMAIN
 EnvironmentFile=/home/USER/sites/DOMAIN/.env
 
-ExecStart=PATH/venv/bin/gunicorn \
+ExecStart=/home/USER/sites/DOMAIN/venv/bin/gunicorn \
              --bind unix:/tmp/DOMAIN.socket \
                superlists.wsgi:application
 

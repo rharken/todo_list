@@ -55,8 +55,9 @@ def gen_templates(u, d):
     global user
     global domain
 
+    base_path = "/home/"+user+"/sites/"+domain+"/deploy_tools/"
     # nginx template
-    nginx_template = "/user/"+user+"/sites/"+domain+"/deploy_tools/nginx.template.conf"
+    nginx_template = base_path+"nginx.template.conf"
     nginx_prod_file = "/etc/nginx/sites-available/"+domain
 
     try:
@@ -70,6 +71,23 @@ def gen_templates(u, d):
             line = fp.readline()
     finally:
         fp.close()
+        fout.close()
+    
+    # gunicorn template
+    gunicorn_template = base_path+"gunicorn-systemd.template.service"
+    gunicorn_prod_file = "/etc/systemd/system/"+domain+".service"
+    try:
+        fp = open(gunicorn_template)
+        line = fp.readline()
+        fout = open(gunicorn_prod_file, "+w")
+        while(line):
+            line = line.replace('USER', user)
+            line = line.replace('DOMAIN', domain)
+            fout.write(line)
+            line = fp.readline()
+    finally:
+        fp.close()
+        fout.close()
     
     return()
 
