@@ -4,8 +4,8 @@ Description=Gunicorn server for DOMAIN
 [Service]
 Restart=on-failure
 User=USER
-WorkingDirectory=PATH
-EnvironmentFile=PATH/.env
+WorkingDirectory=/home/USER/sites/DOMAIN
+EnvironmentFile=/home/USER/sites/DOMAIN/.env
 
 ExecStart=PATH/venv/bin/gunicorn \
              --bind unix:/tmp/DOMAIN.socket \
