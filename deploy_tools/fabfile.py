@@ -28,7 +28,7 @@ def _update_virtualenv():
         run('./venv/bin/pip3 install -r requirements.txt')
 
 def _create_or_update_dotenv():
-    append('.env', 'DJANGO_DEBUG_FALSE=y')
+    append('.env', 'DJANGO_DEBUG_FALSE=1')
     append('.env', f'SITENAME={env.host}')
     current_contents = run('cat .env')
     if 'DJANGO_SECRET_KEY' not in current_contents:
