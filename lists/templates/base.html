@@ -7,12 +7,13 @@
       <meta name="viewport" content="width=device-width, initial-scale=1"> <title>To-Do lists</title>
       <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link href="/static/base.css" rel="stylesheet">   </head>
-      <link rel="shortcut icon" href="{%  static 'VanesIcon.png' %}"/>
+      <link rel="icon" href="{%  static 'VanesIcon.png' %}" />
    </head>
    <body>
       <div class="container">
-         <div class="row">
-            <div class="col align-self-center jumbotron">
+        <div class="row justify-content-center">
+            <!-- <div class="col align-self-center jumbotron text-white bg-dark"> -->
+            <div class="col-md-6 col-md-offset-3 jumbotron text-white bg-dark">
                <div class="text-center">
                   <h1>{% block header_text %}{% endblock %}</h1>
                   <form method="POST" action="{% block form_action %}{% endblock %}">
@@ -22,8 +23,9 @@
               </div>
             </div>
           </div>
-         <div class="row">
-            <div class="col align-self-center">
+         <div class="row justify-content-center">
+            <div class="col-md-6 col-md-offset-3">
+            <!-- <div class="col align-self-center"> -->
                {% block table %}
                {% endblock %}
             </div>
