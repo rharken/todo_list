@@ -98,6 +98,8 @@ def start_services():
 
     cmds = [
         "systemctl daemon-reload",
+        "ln -s /etc/nginx/sites-available/"+domain+" /etc/nginx/sites-deployed/"+domain,
+        "rm /etc/nginx/sites-deployed/default",
         "systemctl enable nginx",
         "systemctl start nginx",
         "systemctl enable "+domain,
