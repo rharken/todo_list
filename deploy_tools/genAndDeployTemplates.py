@@ -97,9 +97,11 @@ def start_services():
     import shlex
 
     cmds = [
+        "systemctl stop nginx",
+        "systemctl stop "+domain,
         "systemctl daemon-reload",
-        "ln -s /etc/nginx/sites-available/"+domain+" /etc/nginx/sites-deployed/"+domain,
-        "rm /etc/nginx/sites-deployed/default",
+        "ln -s /etc/nginx/sites-available/"+domain+" /etc/nginx/sites-enabled/"+domain,
+        "rm /etc/nginx/sites-enabled/default",
         "systemctl enable nginx",
         "systemctl start nginx",
         "systemctl enable "+domain,
