@@ -92,6 +92,30 @@ def gen_templates(u, d):
     return()
 
 def start_services():
+    global domain
+    import subprocess
+    import shlex
+
+    cmds = [
+        "systemctl daemon-reload",
+        "systemctl enable nginx",
+        "systemctl start nginx",
+        "systemctl enable "+domain,
+        "systemctl start "+domain,
+    ]
+
+    for cmd in cmds:
+        de_cmd = shlex.split(cmd)
+
+        try: 
+            return_text=subprocess.Popen(de_cmd)
+        except:
+            logging.error("Unexpected error: %s" % sys.exc_info()[1])
+            sys.exit(1)
+
+        logging.debug("Command: %s" % cmd)
+        logging.debug(return_text)
+
     return()
 
 def main():
