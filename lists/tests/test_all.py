@@ -22,10 +22,10 @@ class ListAndItemModelsTest(TestCase):
         first_item.list = list_
         first_item.save()
 
-        second_item = Item()
-        second_item.text = 'Item the second'
-        second_item.list = list_
-        second_item.save()
+        _ = Item()
+        _.text = 'Item the second'
+        _.list = list_
+        _.save()
 
         saved_list = List.lists.first()
         self.assertEqual(saved_list, list_)
@@ -52,9 +52,9 @@ class ListViewTest(TestCase):
         correct_list = List.lists.create()
         Item.items.create(text='itemey 1', list=correct_list)
         Item.items.create(text='itemey 2', list=correct_list)
-        other_list = List.lists.create()
-        Item.items.create(text='other list item 1', list=other_list)
-        Item.items.create(text='other list item 2', list=other_list)
+        _ = List.lists.create()
+        Item.items.create(text='other list item 1', list=_)
+        Item.items.create(text='other list item 2', list=_)
 
         response = self.client.get(f'/lists/{correct_list.id}/')
 
@@ -64,7 +64,7 @@ class ListViewTest(TestCase):
         self.assertNotContains(response, 'other list item 2')
 
     def test_passes_correct_list_to_template(self):
-        other_list = List.lists.create()
+        _ = List.lists.create()
         correct_list = List.lists.create()
 
         response = self.client.get(f'/lists/{correct_list.id}/')
@@ -86,7 +86,7 @@ class NewListTest(TestCase):
 
 class NewItemTest(TestCase):
     def test_can_save_a_POST_request_to_an_existing_list(self):
-        other_list = List.lists.create()
+        _ = List.lists.create()
         correct_list = List.lists.create()
 
         self.client.post(
@@ -100,7 +100,7 @@ class NewItemTest(TestCase):
         self.assertEqual(new_item.list, correct_list)
 
     def test_redirects_to_list_view(self):
-        other_list = List.lists.create()
+        _ = List.lists.create()
         correct_list = List.lists.create()
 
         response = self.client.post(
