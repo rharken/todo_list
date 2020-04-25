@@ -16,7 +16,7 @@ def view_list(request, list_id):
         if form.is_valid():
             form.save()
             return redirect(list_)
-    return render(request, 'list.html', {'list': list_, "form": form})
+    return render(request, 'list.html', {'list': list_, 'form': form})
 
 
 def new_list(request):
@@ -26,4 +26,4 @@ def new_list(request):
         form.save(for_list=list_)
         return redirect(list_)
     else:
-        return render(request, 'home.html', {"form": form})
+        return render(request, 'home.html', {'form': form})
