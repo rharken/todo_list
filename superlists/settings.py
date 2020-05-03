@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     'accounts',
 ]
 
+AUTH_USER_MODEL='accounts.User'
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.PasswordlessAuthenticationBackend',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -86,10 +91,6 @@ DATABASES = {
     }
 }
 
-
-
-AUTH_USER_MODEL='accounts.User'
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -131,6 +132,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #STATICFILES_DIRS = [
 #    os.path.join(BASE_DIR, 'static'),
 #]
+
+
+EMAIL_HOST = 'mail.oxfordlakesweather.com'
+EMAIL_HOST_USER = 'noreply@oxfordlakesweather.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 LOGGING = {
     'version': 1,
