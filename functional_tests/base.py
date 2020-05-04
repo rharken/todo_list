@@ -21,7 +21,9 @@ def wait(fn):
     return modified_fn
 
 
-class FunctionalTest(StaticLiveServerTestCase): 
+
+
+class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox() 
         staging_server = os.environ.get('STAGING_SERVER')
@@ -30,6 +32,13 @@ class FunctionalTest(StaticLiveServerTestCase):
     
     def tearDown(self):
         self.browser.quit()
+
+    def get_item_input_box(self):
+        return self.browser.find_element_by_id('id_text')
+
+    @wait
+    def wait_for(self, fn):
+        return fn()
 
     @wait
     def wait_for_row_in_list_table(self, row_text):
@@ -48,4 +57,3 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.find_element_by_name('email')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
-        
