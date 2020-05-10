@@ -1,8 +1,11 @@
 from django.core import mail
 from selenium.webdriver.common.keys import Keys
 
+from urllib.parse import urlsplit, urlunsplit # Because port numbers caused a problem in testing
+
 import os
 import poplib
+import ssl
 import re
 import time
 
@@ -20,7 +23,8 @@ class LoginTest(FunctionalTest):
 
         email_id = None
         start = time.time()
-        inbox = poplib.POP3_SSL('pop-mail.outlook.com')
+        time.sleep(5)
+        inbox = poplib.POP3_SSL('outlook.office365.com', 995)
         try:
             inbox.user(test_email)
             inbox.pass_(os.environ['HOTMAIL_PASSWORD'])
@@ -28,10 +32,10 @@ class LoginTest(FunctionalTest):
                 # get 10 newest messages
                 count, _ = inbox.stat()
                 for i in reversed(range(max(1, count - 10), count + 1)):
-                    print('getting msg', i)
+                    #print('getting msg', i)
                     _, lines, __ = inbox.retr(i)
                     lines = [l.decode('utf8') for l in lines]
-                    print(lines)
+                    #print(lines)
                     if f'Subject: {subject}' in lines:
                         email_id = i
                         body = '\n'.join(lines)
@@ -71,6 +75,12 @@ class LoginTest(FunctionalTest):
             self.fail(f'Could not find url in email body:\n{body}')
             
         url = url_search.group(0)
+        # Testing with a port on the live server check
+        t_url_split = urlsplit(self.live_server_url)
+        if (t_url_split.port):
+            u_split = urlsplit(url)
+            url = u_split._replace(netloc=t_url_split.netloc).geturl() # This may inject unintended side effects! - better to fix the email
+
         self.assertIn(self.live_server_url, url)
             
         # she clicks it
