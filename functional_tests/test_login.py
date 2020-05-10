@@ -1,11 +1,8 @@
 from django.core import mail
 from selenium.webdriver.common.keys import Keys
 
-from urllib.parse import urlsplit, urlunsplit # Because port numbers caused a problem in testing
-
 import os
 import poplib
-import ssl
 import re
 import time
 
