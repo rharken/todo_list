@@ -1,16 +1,11 @@
 from django.core import mail
 from selenium.webdriver.common.keys import Keys
 
-<<<<<<< HEAD
 from urllib.parse import urlsplit, urlunsplit # Because port numbers caused a problem in testing
 
 import os
 import poplib
 import ssl
-=======
-import os
-import poplib
->>>>>>> c97adb7d54803b19425efbcaaa4e1cff25450a67
 import re
 import time
 
@@ -28,12 +23,8 @@ class LoginTest(FunctionalTest):
 
         email_id = None
         start = time.time()
-<<<<<<< HEAD
         time.sleep(5)
         inbox = poplib.POP3_SSL('outlook.office365.com', 995)
-=======
-        inbox = poplib.POP3_SSL('pop-mail.outlook.com')
->>>>>>> c97adb7d54803b19425efbcaaa4e1cff25450a67
         try:
             inbox.user(test_email)
             inbox.pass_(os.environ['HOTMAIL_PASSWORD'])
@@ -41,17 +32,10 @@ class LoginTest(FunctionalTest):
                 # get 10 newest messages
                 count, _ = inbox.stat()
                 for i in reversed(range(max(1, count - 10), count + 1)):
-<<<<<<< HEAD
                     #print('getting msg', i)
                     _, lines, __ = inbox.retr(i)
                     lines = [l.decode('utf8') for l in lines]
                     #print(lines)
-=======
-                    print('getting msg', i)
-                    _, lines, __ = inbox.retr(i)
-                    lines = [l.decode('utf8') for l in lines]
-                    print(lines)
->>>>>>> c97adb7d54803b19425efbcaaa4e1cff25450a67
                     if f'Subject: {subject}' in lines:
                         email_id = i
                         body = '\n'.join(lines)
@@ -91,12 +75,6 @@ class LoginTest(FunctionalTest):
             self.fail(f'Could not find url in email body:\n{body}')
             
         url = url_search.group(0)
-        # Testing with a port on the live server check
-        t_url_split = urlsplit(self.live_server_url)
-        if (t_url_split.port):
-            u_split = urlsplit(url)
-            url = u_split._replace(netloc=t_url_split.netloc).geturl() # This may inject unintended side effects! - better to fix the email
-
         self.assertIn(self.live_server_url, url)
             
         # she clicks it
