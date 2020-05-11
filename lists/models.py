@@ -7,6 +7,10 @@ class List(models.Model):
     objects = models.Manager()
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL)
+    
+    @property
+    def name(self):
+        return self.item_set.first().text
 
     def get_absolute_url(self):
         return reverse('view_list', args=[self.id])
@@ -14,9 +18,9 @@ class List(models.Model):
     
 class Item(models.Model):
     class Meta:
-        ordering = ('id',)
         unique_together = ('list', 'text')
-
+        ordering = ('id',)
+        
     objects = models.Manager()
     text = models.TextField(default='') 
     list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)
