@@ -156,5 +156,5 @@ EMAIL_USE_SSL = True
 #            'handlers': ['console'],
 #        },
 #    },
-#    'root': {'level': 'INFO'},
+#    'root': {'level': 'DEBUG'},
 #}

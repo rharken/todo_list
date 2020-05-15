@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-from unittest import skip
+import unittest
+from unittest.mock import patch, Mock
 
 from lists.views import home_page
 from lists.models import Item, List
@@ -146,11 +147,23 @@ class NewListTest(TestCase):
         response = self.client.post('/lists/new', data={'text': ''})
         self.assertIsInstance(response.context['form'], ItemForm)
 
-    def test_list_owner_is_saved_if_user_is_authenticated(self):
+    @unittest.skip
+    @patch('lists.views.List')
+    @patch('lists.views.ItemForm')
+    @patch('lists.views.redirect')
+    def test_list_owner_is_saved_if_user_is_authenticated(
+            self, mock_redirect, mockItemFormClass, mockListClass
+        ):
         user = User.objects.create(email='a@b.com')
         self.client.force_login(user)
+        mock_list = mockListClass.return_value
+
+        def check_owner_assigned():
+            self.assertEqual(mock_list.owner, user)
+            
+        mock_list.save.side_effect = check_owner_assigned
         self.client.post('/lists/new', data={'text': 'new item'})
-        list_ = List.objects.first()
+        mock_list.save.assert_called_once_with()
         self.assertEqual(list_.owner, user)
 
 
@@ -166,4 +179,23 @@ class MyListsTest(TestCase):
         correct_user = User.objects.create(email='a@b.com')
         response = self.client.get('/lists/users/a@b.com/')
         self.assertEqual(response.context['owner'], correct_user)
+
+class NewListViewIntegratedTest(TestCase):
+    def test_can_save_a_POST_request(self):
+        self.client.post('/lists/new', data={'text': 'A new list item'})
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, 'A new list item')
+
+    def test_for_invalid_input_doesnt_save_but_shows_errors(self):
+        response = self.client.post('/lists/new', data={'text': ''})
+        self.assertEqual(List.objects.count(), 0)
+        self.assertContains(response, escape(EMPTY_ITEM_ERROR))
+
+    def test_list_owner_is_saved_if_user_is_authenticated(self):
+        user = User.objects.create(email='a@b.com')
+        self.client.force_login(user)
+        self.client.post('/lists/new', data={'text': 'new item'})
+        list_ = List.objects.first()
+        self.assertEqual(list_.owner, user)
 
