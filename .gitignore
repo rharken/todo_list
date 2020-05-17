@@ -9,3 +9,4 @@ __pycache__
 /static
 setremoteserver
 .env
+functional_tests/screendumps
