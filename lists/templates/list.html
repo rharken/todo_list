@@ -11,3 +11,21 @@
       {% endfor %}
    </table>
 {% endblock %}
+
+{% block extra_content %}
+   </br>
+   <div class="container">
+      <div class="row">
+         <div class="col-lg">
+            <p class="text-center">List shared with:</p>
+         </div>
+         <div class="col-lg">
+            <p class="text-center">Share this list</p>
+            <form class="form-inline" method="POST" action="{% url 'view_list' list.id %}">
+               <input class="form-control" name="sharee" type="text" />
+               {% csrf_token %}
+            </form>
+         </div>
+      </div>
+   </div>
+{% endblock %}
