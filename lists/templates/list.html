@@ -21,8 +21,8 @@
          </div>
          <div class="col-lg">
             <p class="text-center">Share this list</p>
-            <form class="form-inline" method="POST" action="{% url 'view_list' list.id %}">
-               <input class="form-control" name="sharee" type="text" />
+            <form class="form-inline" method="POST" action="{% url 'share_lists' list.id %}">
+               <input class="form-control" name="sharee" type="text" value="email@example.com"/>
                {% csrf_token %}
             </form>
          </div>

@@ -48,3 +48,6 @@ def my_lists(request, email):
     owner = User.objects.get(email=email)
     return render(request, 'my_lists.html', {'owner': owner})
 
+def share_lists(request, list_id):
+    pass
+
