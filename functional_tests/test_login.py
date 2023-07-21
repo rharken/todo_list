@@ -53,13 +53,13 @@ class LoginTest(FunctionalTest):
             test_email = 'tddedithtest@hotmail.com'
         else:
             test_email = 'edith@example.com'
-        self.browser.find_element_by_name('email').send_keys(test_email)
-        self.browser.find_element_by_name('email').send_keys(Keys.ENTER)
+        self.browser.find_element('name','email').send_keys(test_email)
+        self.browser.find_element('name','email').send_keys(Keys.ENTER)
     
         # A message appears telling her an email has been sent
         self.wait_for(lambda: self.assertIn(
             'Check your email',
-            self.browser.find_element_by_tag_name('body').text
+            self.browser.find_element('tag name','body').text
         ))
         
         # She checks her email and finds a message
@@ -81,7 +81,7 @@ class LoginTest(FunctionalTest):
         self.wait_to_be_logged_in(email=test_email)
         
         # Now she logs out
-        self.browser.find_element_by_link_text('Log out').click()
+        self.browser.find_element('link text','Log out').click()
         
         # She is logged out
         self.wait_to_be_logged_out(email=test_email)

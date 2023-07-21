@@ -7,7 +7,7 @@ from .base import FunctionalTest
 class ItemValidationTest(FunctionalTest):
 
     def get_error_element(self):
-        return self.browser.find_element_by_id('invalid-message')
+        return self.browser.find_element('id','invalid-message')
     
     def test_cannot_add_empty_list_items(self):
         # Edith goes to the home page and accidentally tries to submit
@@ -24,7 +24,7 @@ class ItemValidationTest(FunctionalTest):
 
         # The home page refreshes, and there is an error message saying
         # that list items cannot be blank
-        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_text:invalid'))
+        self.wait_for(lambda: self.browser.find_elements('css selector','#id_text:invalid'))
 
         # She tries again with some text for the item, which now works
         self.add_list_item('Buy milk')
@@ -40,7 +40,7 @@ class ItemValidationTest(FunctionalTest):
         #))
 
         # She receives a similar warning on the list page
-        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_text:invalid'))
+        self.wait_for(lambda: self.browser.find_elements('css selector','#id_text:invalid'))
 
         # And she can correct it by filling some text in
         self.add_list_item('Make tea')

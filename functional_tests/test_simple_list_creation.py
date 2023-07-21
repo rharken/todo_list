@@ -12,7 +12,7 @@ class NewVisitorTest(FunctionalTest):
         
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title) 
-        header_text = self.browser.find_element_by_tag_name('h1').text
+        header_text = self.browser.find_element('tag name','h1').text
         self.assertIn('To-Do', header_text)
         
         # She is invited to enter a to-do item straight away
@@ -67,7 +67,7 @@ class NewVisitorTest(FunctionalTest):
 
         # Francis visits the home page, there is no site of Edith's list
         self.browser.get(self.live_server_url)
-        page_text = self.browser.find_element_by_tag_name('body').text
+        page_text = self.browser.find_element('tag name','body').text
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertNotIn('make a fly', page_text)
         
@@ -85,7 +85,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotEqual(francis_list_url, edith_list_url)
 
         # Again, there is no trace of Edith's list
-        page_text = self.browser.find_element_by_tag_name('body').text
+        page_text = self.browser.find_element('tag name','body').text
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertIn('Buy milk', page_text)
         

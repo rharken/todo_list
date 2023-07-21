@@ -16,12 +16,12 @@ Including another URLconf
 
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url
+from django.conf.urls import re_path
 from lists import views
 
 urlpatterns = [
-    url(r'^new$', views.new_list, name='new_list'),
-    url(r'^(\d+)/$', views.view_list, name='view_list'),
-    url(r'^users/(.+)/$', views.my_lists, name='my_lists'),
-    url(r'^lists/(.+)/share/$', views.share_lists, name='share_lists')
+    re_path(r'^new$', views.new_list, name='new_list'),
+    re_path(r'^(\d+)/$', views.view_list, name='view_list'),
+    re_path(r'^users/(.+)/$', views.my_lists, name='my_lists'),
+    re_path(r'^lists/(.+)/share/$', views.share_lists, name='share_lists')
 ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
