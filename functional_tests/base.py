@@ -3,7 +3,6 @@ from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
-from unittest import skip
 from datetime import datetime
 import os
 import time
@@ -59,6 +58,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         ## 404 pages load the quickest!
         
         self.browser.get(self.live_server_url + "/404_no_such_url/")
+
         self.browser.add_cookie(dict(
             name=settings.SESSION_COOKIE_NAME,
             value=session_key,
